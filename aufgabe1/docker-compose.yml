@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  boot-schulung-db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: silish
+      POSTGRES_PASSWORD: silish
+      POSTGRES_DB: silish
+

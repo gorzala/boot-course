@@ -1,0 +1,94 @@
+= Boot tut gut
+Marc Gorzala; Dominik Bruhn
+:toc: 
+
+== Handling des Projekts
+
+=== Backend bauen
+[source,bash]
+----
+./gradlew installDist
+----
+
+=== Backend starten
+(nach einem erfolgreichen Bauen)
+[source,bash]
+----
+docker-compose up --build -d
+----
+
+=== Datenbank UI aufrufen
+
+(nachdem das Backe erfolgreich gestartet wurde)
+
+link:http://localhost:5050[PgAdmin]
+
+[cols="h,1"]
+|===
+|Username  | TBD 
+|Password  | TBD 
+|===
+
+=== Insomania
+
+Importier die Endpunkte mithilfe dem Inhalt unter /support
+
+
+== Boot Stuff
+
+=== Spring CLI
+
+install this mit 
+[source,bash]
+----
+sdk intall springboot
+----
+
+=== Was für Module gibt es bei Spring Boot
+
+[source,bash]
+----
+spring init --list
+----
+
+=== Mit der CLI ein Boot Project initialisieren
+
+[source,bash]
+----
+spring init --build=gradle --format=project --dependencies=web,actuator test
+----
+(das legt ein Projekt mit dem Namen test an und ohen den Umweg über ein Zip-Archiv)
+
+=== Actuator Stuff
+
+link:https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator[Offizielle Dokumentation]
+
+=== Building a Controller
+
+link:https://spring.io/guides/gs/rest-service/[Offizielle Dokumentation]
+
+[cols="1,1"]
+|===
+|`@RestController`
+| An einer Klasse annotiert, kann diese dann genutzt werden um Rest-Endpunkte (oder auch RPC-Style ;-) ) zu schreiben.
+
+|`@GetMapping('uri')`
+|An einer Methode annotiert, kann genutzt werden um einen Get-Endpunkt zu schreiben
+|===
+
+=== Autoconfiguration einer Datasource
+
+Das hinzufügen von `org.springframework.boot:spring-boot-starter-data-jpa` triggert die Autoconfiguration. Spring will dann eine `DataSource` erzeugen.
+
+Mit dem Hinzufügen des PostgreSQL-Treiber `org.postgresql:postgresql`, weiß Boot, dass wir zu einer Boot-Datenbank Kontak aufnehmen wollen.
+
+Nun benötigen wir nur noch Benutzer-Name und Passwort in der `application.yml`
+
+[source,bash]
+----
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/silish
+    username: silish
+    password: silish
+----
